@@ -4,6 +4,24 @@
 
 bool Calculator::Prompt() {
 
+    std::string choice;
+
+    std::cout << "\n<><><><><><><><><><><><><><><><><><><><><>"
+              << "\n<><><><>Monthly Expense Calculator<><><><>"
+              << "\n<><><><><><><><><><><><><><><><><><><><><>"
+              << "\n\nMonth: ";
+    std::cin >> month;
+
+    std::cout << "\nMake an expense report for " << month << "?" << "(Y/N) ";
+    std:: cin >> choice;
+
+    if (choice == "Y"){
+        return true;
+    }
+    else {
+        return false;
+    }
+
 }
 
 void Calculator::Groceries() {
