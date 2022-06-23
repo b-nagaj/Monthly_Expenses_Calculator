@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <filesystem>
 #include "Calculator.hpp"
 
 bool Calculator::Prompt() {
@@ -45,6 +46,20 @@ void Calculator::Report() {
 }
 
 bool Calculator::Check() {
+
+    if (std::filesystem::exists(month + "_Groceries.txt") 
+        && std::filesystem::exists(month + "_Eating_Out.txt")
+        && std::filesystem::exists(month + "_Gas.txt")
+        && std::filesystem::exists(month + "_Rent.txt")
+        && std::filesystem::exists(month + "_Internet.txt")
+        && std::filesystem::exists(month + "_Electricity.txt")
+        && std::filesystem::exists(month + "_Water.txt")
+        && std::filesystem::exists(month + "_Car.txt")) {
+        return true;
+    }
+    else {
+        return false;
+    }
 
 }
 
