@@ -50,4 +50,10 @@ bool Calculator::Check() {
 
 void Calculator::Calculate() {
 
+    Prompt();
+
+    if (Check() == true) {
+            std::cout << "\nExpense report saved to " << month << ".txt\n\n";
+        }
+
 }
