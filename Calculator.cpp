@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include <fstream>
+#include <iomanip>
 #include "Calculator.hpp"
 
 bool Calculator::Prompt() {
@@ -27,8 +29,38 @@ bool Calculator::Prompt() {
 
 void Calculator::Groceries() {
 
-}
+    expenseFilename = "/home/bryce/Documents/Monthly_Expenses/Data/" + month + "_2022/" + month + "_2022_Groceries.txt";
+    std::ifstream inputFile(expenseFilename);
+    if (!inputFile) {
+        std::cerr << "\nCould not open the groceries data file!\n\n";
+    }
+    else {
+        int index = 0;
+        std::string groceriesArray [20];
+
+        while(!inputFile.eof()){
+        std::getline(inputFile, groceriesArray[index]);
+        groceries += std::stod(groceriesArray[index]);
+        index += 1;
+        }
+        inputFile.close();
+    }
     
+    reportFilename = "/home/bryce/Documents/Monthly_Expenses/Reports/May_2022_Report.txt";
+    std::ofstream outputFile(reportFilename);
+    if (outputFile.is_open()) {
+        outputFile << std::fixed;
+        outputFile << std::setprecision(2);
+        outputFile << groceries;
+        outputFile.close();
+        std::cout << "\n\nGroceries ✅";
+    }
+    else {
+        std::cerr << "\nCould not open the groceries data file!\n\n";
+    }
+
+}
+
 void Calculator::EatingOut() {
 
 }
@@ -45,30 +77,14 @@ void Calculator::Report() {
 
 }
 
-bool Calculator::Check() {
-
-    if (std::filesystem::exists(month + "_Groceries.txt") 
-        && std::filesystem::exists(month + "_Eating_Out.txt")
-        && std::filesystem::exists(month + "_Gas.txt")
-        && std::filesystem::exists(month + "_Rent.txt")
-        && std::filesystem::exists(month + "_Internet.txt")
-        && std::filesystem::exists(month + "_Electricity.txt")
-        && std::filesystem::exists(month + "_Water.txt")
-        && std::filesystem::exists(month + "_Car.txt")) {
-        return true;
-    }
-    else {
-        return false;
-    }
-
-}
-
 void Calculator::Calculate() {
 
-    Prompt();
-
-    if (Check() == true) {
-            std::cout << "\nExpense report saved to " << month << ".txt\n\n";
-        }
+    if (Prompt()) {
+        std::cout << "\nCreating expense report...";
+        Groceries();
+    }
+    else {
+        std::cout << "\nBye!\n\n";
+    }
 
 }
