@@ -8,6 +8,8 @@ public:
     std::string month;
     std::string expenseFilename;
     std::string reportFilename;
+    std::string expenseName;
+    std::string expenseArray [20];
     double groceries;
     double eatingOut;
     double gas;
@@ -17,6 +19,7 @@ public:
     double car;
 
     bool Prompt();
+    void CalculateExpense(double expenseType);
     void Groceries();
     void EatingOut();
     void Gas();
