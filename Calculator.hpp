@@ -22,7 +22,6 @@ public:
     void Gas();
     void Other();
     void Report();
-    bool Check();
     void Calculate();
 
 };
