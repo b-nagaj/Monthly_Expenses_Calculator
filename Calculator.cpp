@@ -27,37 +27,43 @@ bool Calculator::Prompt() {
 
 }
 
-void Calculator::Groceries() {
+void Calculator::CalculateExpense(double expenseType) {
 
-    expenseFilename = "/home/bryce/Documents/Monthly_Expenses/Data/" + month + "_2022/" + month + "_2022_Groceries.txt";
     std::ifstream inputFile(expenseFilename);
     if (!inputFile) {
-        std::cerr << "\nCould not open the groceries data file!\n\n";
+        std::cerr << "\nCould not open the " + expenseName + " data file!\n\n";
     }
     else {
         int index = 0;
-        std::string groceriesArray [20];
-
-        while(!inputFile.eof()){
-        std::getline(inputFile, groceriesArray[index]);
-        groceries += std::stod(groceriesArray[index]);
-        index += 1;
+        while (!inputFile.eof()) {
+            std::getline(inputFile, expenseArray[index]);
+            expenseType += std::stod(expenseArray[index]);
+            index += 1;
         }
         inputFile.close();
     }
-    
-    reportFilename = "/home/bryce/Documents/Monthly_Expenses/Reports/May_2022_Report.txt";
+
     std::ofstream outputFile(reportFilename);
     if (outputFile.is_open()) {
         outputFile << std::fixed;
         outputFile << std::setprecision(2);
-        outputFile << groceries;
+        outputFile << expenseType;
         outputFile.close();
-        std::cout << "\n\nGroceries ✅";
+        std::cout << "\n\n" + expenseName + " ✅";
     }
     else {
-        std::cerr << "\nCould not open the groceries data file!\n\n";
+        std::cerr << "\nCould not open the " + expenseName + " data file!\n\n";
     }
+
+}
+
+void Calculator::Groceries() {
+
+    expenseName = "groceries";
+    expenseFilename = "/home/bryce/Documents/Monthly_Expenses/Data/" + month + "_2022/" + month + "_2022_Groceries.txt"; 
+    reportFilename = "/home/bryce/Documents/Monthly_Expenses/Reports/" + month + "_2022_Report.txt";
+
+    CalculateExpense(groceries);
 
 }
 
